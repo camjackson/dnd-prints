@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import PlayersForm, { Player } from './PlayersForm';
+import { Player } from './PlayerFormRow';
+import PlayersForm from './PlayersForm';
 
 const newPlayer = (): Player => ({
   name: '',
