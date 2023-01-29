@@ -6,7 +6,7 @@ type Props = {
   players: Player[];
 };
 
-const Print = ({ players }: Props) => {
+const Namecards = ({ players }: Props) => {
   const rows: Player[][] = [];
   for (let i = 0; i < players.length; i += 2) {
     rows.push([players[i], players[i + 1]]);
@@ -14,19 +14,19 @@ const Print = ({ players }: Props) => {
 
   return (
     <table
-      className="hidden print:table w-full table-fixed"
+      className="w-full table-fixed"
       style={{ printColorAdjust: 'exact', backgroundImage: `url(${paper})` }}
     >
       <tbody>
         {rows.map(([leftPlayer, rightPlayer]) => (
           <>
-            <tr>
-              {<PrintPlayer player={leftPlayer} />}
-              {<PrintPlayer player={rightPlayer} />}
+            <tr className="break-inside-avoid break-after-avoid">
+              {<PlayerNamecard flip player={leftPlayer} />}
+              {<PlayerNamecard flip player={rightPlayer} />}
             </tr>
-            <tr>
-              {<PrintPlayer flip player={leftPlayer} />}
-              {<PrintPlayer flip player={rightPlayer} />}
+            <tr className="break-inside-avoid break-before-avoid">
+              {<PlayerNamecard player={leftPlayer} />}
+              {<PlayerNamecard player={rightPlayer} />}
             </tr>
           </>
         ))}
@@ -35,12 +35,12 @@ const Print = ({ players }: Props) => {
   );
 };
 
-type PrintPlayerProps = {
+type PlayerNamecardProps = {
   flip?: boolean;
   player?: Player;
 };
 
-const PrintPlayer = ({ flip, player }: PrintPlayerProps) => {
+const PlayerNamecard = ({ flip, player }: PlayerNamecardProps) => {
   if (!player) return null;
   const rotate = flip ? 'rotate-180' : '';
 
@@ -60,4 +60,4 @@ const PrintPlayer = ({ flip, player }: PrintPlayerProps) => {
   );
 };
 
-export default Print;
+export default Namecards;

@@ -1,6 +1,6 @@
 import { Player } from './PlayerFormRow';
 import PlayersForm from './PlayersForm';
-import Namecards from './Namecards';
+import Print from './Print';
 import useLocalStorageState from './useLocalStorageState';
 
 const newPlayer = (): Player => ({
@@ -45,7 +45,7 @@ const App = () => {
         </button>
         <span className="self-end mt-2 italic">Tip: Print in landscape!</span>
       </main>
-      <Namecards players={players} />
+      <Print players={players} />
     </>
   );
 };
