@@ -1,5 +1,6 @@
 import { Player } from './PlayerFormRow';
 import paper from './assets/paper.jpg';
+import AvatarImg from './AvatarImg';
 
 type Props = {
   players: Player[];
@@ -48,11 +49,7 @@ const PrintPlayer = ({ flip, player }: PrintPlayerProps) => {
   return (
     <td className={`${rotate} border-2 border-black h-36 p-4`}>
       <div className="flex flex-row">
-        <span className="w-28 h-28 bg-gray-400">
-          {avatarUrl && (
-            <img className="w-full h-full" alt={name} src={avatarUrl} />
-          )}
-        </span>
+        <AvatarImg className="w-28 h-28" name={name} src={avatarUrl} />
         <div className="flex flex-col ml-4 justify-between">
           <h1 className="text-3xl">{name}</h1>
           <p className="text-xl">{race}</p>

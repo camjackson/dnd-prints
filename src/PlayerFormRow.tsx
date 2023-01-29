@@ -1,3 +1,5 @@
+import AvatarImg from './AvatarImg';
+
 export type Player = {
   name: string;
   level: number;
@@ -15,7 +17,11 @@ type Props = {
 const PlayerFormRow = ({ player, removePlayer, updatePlayer }: Props) => {
   return (
     <div className="mb-2 flex flex-row gap-4 items-center">
-      <span className="w-16 h-16 bg-gray-200"></span>
+      <AvatarImg
+        className="w-16 h-16"
+        name={player.name}
+        src={player.avatarUrl}
+      />
       <Input
         className="w-36"
         type="text"
