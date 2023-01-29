@@ -92,7 +92,7 @@ const Input = ({
   <label className="flex flex-col">
     {label}
     <input
-      className={`mt-1 border ${className}`}
+      className={`mt-1 pl-2 border ${className}`}
       {...{ type, placeholder, value }}
       name={label}
       onChange={(e) => onChange(e.target.value)}
