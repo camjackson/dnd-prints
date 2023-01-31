@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import AvatarImg from './AvatarImg';
 
 export type Player = {
@@ -64,6 +65,7 @@ const PlayerFormRow = ({ player, removePlayer, updatePlayer }: Props) => {
         onChange={(avatarUrl) => updatePlayer('avatarUrl', avatarUrl)}
         label="Avatar URL"
         placeholder="https://example.com/drizzt.jpg"
+        allowImageUpload
       />
       <button
         type="button"
@@ -81,6 +83,7 @@ type InputProps = InputType & {
   label: string;
   placeholder: string;
   onChange: (val: string) => void;
+  allowImageUpload?: boolean;
 };
 
 type InputType =
@@ -94,16 +97,45 @@ const Input = ({
   label,
   placeholder,
   className,
-}: InputProps) => (
-  <label className="flex flex-col">
-    {label}
-    <input
-      className={`mt-1 pl-2 border ${className}`}
-      {...{ type, placeholder, value }}
-      name={label}
-      onChange={(e) => onChange(e.target.value)}
-    />
-  </label>
-);
+  allowImageUpload,
+}: InputProps) => {
+  const onFileUpload = (changeEvent: ChangeEvent<HTMLInputElement>) => {
+    const fileInput = changeEvent.target;
+    const reader = new FileReader();
+
+    reader.onload = (loadEvent) => {
+      onChange(loadEvent.target?.result?.toString() ?? '');
+      fileInput.value = '';
+    };
+
+    reader.readAsDataURL((changeEvent.target.files ?? [])[0]);
+  };
+  return (
+    <div className="relative">
+      {allowImageUpload && (
+        <label className="cursor-pointer">
+          <span className="cursor-pointer border rounded-md py-0.5 px-1 absolute right-0 -top-0.5 border-gray-300 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-sm">
+            Choose file
+          </span>
+          <input
+            className="hidden"
+            type="file"
+            accept="image/*"
+            onChange={onFileUpload}
+          />
+        </label>
+      )}
+      <label className="flex flex-col">
+        <div>{label}</div>
+        <input
+          className={`mt-1 pl-2 border ${className}`}
+          {...{ type, placeholder, value }}
+          name={label}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      </label>
+    </div>
+  );
+};
 
 export default PlayerFormRow;
